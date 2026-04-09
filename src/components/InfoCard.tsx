@@ -115,9 +115,18 @@ function InfoCardDefault({ item }: { item: InfoItem }) {
     <div
       className={`md-card border-l-4 ${config.color} overflow-hidden cursor-pointer`}
       onClick={() => setExpanded(!expanded)}
+      role="button"
+      tabIndex={0}
+      aria-expanded={expanded}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setExpanded(!expanded);
+        }
+      }}
     >
       <div className="p-5">
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
           <Icon name={categoryIcons[item.category]} size={20} filled style={{ color: "var(--md-primary)" }} />
           <span
             className={`text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1 ${config.badge}`}
@@ -125,15 +134,22 @@ function InfoCardDefault({ item }: { item: InfoItem }) {
             <Icon name={config.icon} size={14} filled />
             {config.label}
           </span>
-          <span className="text-[11px] text-gray-400">
+          <span className="text-[11px]" style={{ color: "var(--md-outline)" }}>
             {formatTime(item.publishedAt)}
           </span>
           {item.publishedAt !== item.updatedAt && (
-            <span className="text-[11px] text-blue-500 font-medium inline-flex items-center gap-0.5">
+            <span className="text-[11px] font-medium inline-flex items-center gap-0.5" style={{ color: "var(--md-primary)" }}>
               <Icon name="update" size={13} />
               {formatTime(item.updatedAt)}
             </span>
           )}
+          <span className="ml-auto">
+            <Icon
+              name={expanded ? "expand_less" : "expand_more"}
+              size={20}
+              style={{ color: "var(--md-outline)", transition: "transform 0.2s" }}
+            />
+          </span>
         </div>
         <h3 className="text-base font-bold mb-2" style={{ color: "var(--md-on-surface)" }}>
           {item.title}
@@ -146,7 +162,7 @@ function InfoCardDefault({ item }: { item: InfoItem }) {
             <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: "var(--md-on-surface)" }}>
               {item.detail}
             </p>
-            <div className="flex items-center gap-3 mt-4">
+            <div className="flex items-center gap-3 mt-4 flex-wrap">
               <span className="text-xs inline-flex items-center gap-1" style={{ color: "var(--md-outline)" }}>
                 <Icon name="source" size={14} />
                 {item.source}

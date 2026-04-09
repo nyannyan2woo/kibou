@@ -1,19 +1,25 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import ScrollToTop from "@/components/ScrollToTop";
 
-/** Google Fontsの設定（Geist Sans / Mono） */
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const notoSansJP = Noto_Sans_JP({
+  variable: "--font-noto-sans-jp",
   subsets: ["latin"],
+  weight: ["400", "500", "700", "900"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+/** PWA・モバイル向けのViewport設定 */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#1565c0" },
+    { media: "(prefers-color-scheme: dark)", color: "#111318" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
 
 /** アプリ全体のSEOメタデータ */
 export const metadata: Metadata = {
@@ -31,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${notoSansJP.variable} h-full antialiased`}
     >
       <head>
         <link
@@ -53,7 +59,11 @@ export default function RootLayout({
           <p className="mt-2 leading-relaxed" style={{ color: "var(--md-outline)" }}>
             本アプリはユーザーからの情報発信機能を持ちません。配信情報は公式情報源に基づいています。
           </p>
+          <p className="mt-1" style={{ color: "var(--md-outline)" }}>
+            緊急時は 110（警察）/ 119（消防・救急）にお電話ください
+          </p>
         </footer>
+        <ScrollToTop />
       </body>
     </html>
   );
