@@ -2,6 +2,7 @@ import { disasters, infoItems } from "@/data/mock";
 import { TierLevel } from "@/types";
 import DisasterBanner from "@/components/DisasterBanner";
 import TierSection from "@/components/TierSection";
+import Icon from "@/components/Icon";
 
 /**
  * トップページ（ダッシュボード）
@@ -39,7 +40,7 @@ export default function Home() {
             className="w-12 h-12 rounded-2xl flex items-center justify-center text-lg shrink-0"
             style={{ background: "var(--md-primary-container)", color: "var(--md-on-primary-container)" }}
           >
-            ℹ️
+            <Icon name="info" size={24} filled />
           </div>
           <div>
             <h3 className="text-base font-bold mb-2" style={{ color: "var(--md-on-surface)" }}>
@@ -66,7 +67,9 @@ export default function Home() {
       {/* 災害なし時 */}
       {activeDisasters.length === 0 && (
         <div className="md-card text-center py-24 px-8">
-          <div className="text-6xl mb-6">🌤️</div>
+          <div className="mb-6">
+            <Icon name="sunny" size={64} style={{ color: "var(--md-primary)" }} />
+          </div>
           <h2 className="text-2xl font-bold mb-3" style={{ color: "var(--md-on-surface)" }}>
             現在、災害情報はありません
           </h2>

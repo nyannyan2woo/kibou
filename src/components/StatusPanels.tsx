@@ -1,11 +1,12 @@
 import { LifelineStatus, TransportStatus } from "@/types";
+import Icon from "@/components/Icon";
 
 /** ライフライン種別のアイコン */
 const lifelineIcons: Record<LifelineStatus["type"], string> = {
-  electricity: "⚡",
-  water: "💧",
-  gas: "🔥",
-  telecom: "📱",
+  electricity: "bolt",
+  water: "water_drop",
+  gas: "local_fire_department",
+  telecom: "cell_tower",
 };
 
 /** ライフライン種別の日本語ラベル */
@@ -57,7 +58,7 @@ export function LifelinePanel({
         className="bg-indigo-600 text-white rounded-t-2xl px-6 py-4 flex items-center gap-3"
         style={{ boxShadow: "var(--md-elevation-1)" }}
       >
-        <span className="text-xl">🔌</span>
+        <Icon name="power" size={22} filled className="text-white" />
         <div>
           <h2 className="text-lg font-bold">ライフライン状況</h2>
           <p className="text-xs text-white/80 mt-0.5">
@@ -81,7 +82,7 @@ export function LifelinePanel({
                 className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl"
                 style={{ background: "var(--md-surface-container)" }}
               >
-                {lifelineIcons[s.type]}
+                <Icon name={lifelineIcons[s.type]} size={24} filled style={{ color: "var(--md-primary)" }} />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
@@ -120,7 +121,7 @@ export function TransportPanel({
         className="bg-violet-600 text-white rounded-t-2xl px-6 py-4 flex items-center gap-3"
         style={{ boxShadow: "var(--md-elevation-1)" }}
       >
-        <span className="text-xl">🚃</span>
+        <Icon name="train" size={22} filled className="text-white" />
         <div>
           <h2 className="text-lg font-bold">交通機関の運行状況</h2>
           <p className="text-xs text-white/80 mt-0.5">鉄道・バスの運行情報</p>

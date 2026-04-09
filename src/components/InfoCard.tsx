@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { InfoItem } from "@/types";
+import Icon from "@/components/Icon";
 
 /** ティア別の表示設定（ラベル・色・アイコン） */
 const tierConfig = {
@@ -11,7 +12,7 @@ const tierConfig = {
     color: "border-l-emerald-500",
     bg: "",
     badge: "bg-emerald-100 text-emerald-800",
-    icon: "✅",
+    icon: "verified",
   },
   2: {
     label: "報道・確認中",
@@ -19,7 +20,7 @@ const tierConfig = {
     color: "border-l-amber-400",
     bg: "",
     badge: "bg-amber-100 text-amber-800",
-    icon: "📰",
+    icon: "newspaper",
   },
   3: {
     label: "未確認情報",
@@ -27,18 +28,18 @@ const tierConfig = {
     color: "border-l-gray-400",
     bg: "",
     badge: "bg-gray-200 text-gray-600",
-    icon: "⚠️",
+    icon: "warning",
   },
 } as const;
 
 /** カテゴリ別アイコンマッピング */
 const categoryIcons: Record<InfoItem["category"], string> = {
-  evacuation: "🏠",
-  lifeline: "🔌",
-  transport: "🚃",
-  medical: "🏥",
-  weather: "🌏",
-  general: "📋",
+  evacuation: "night_shelter",
+  lifeline: "power",
+  transport: "train",
+  medical: "local_hospital",
+  weather: "public",
+  general: "assignment",
 };
 
 /** 日時文字列を「HH:MM」形式にフォーマット */
@@ -64,9 +65,10 @@ function InfoCardTier3({ item }: { item: InfoItem }) {
       <div className="p-5">
         <div className="flex items-center gap-2 mb-3">
           <span
-            className={`text-[11px] font-bold px-3 py-1 rounded-full ${config.badge}`}
+            className={`text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1 ${config.badge}`}
           >
-            {config.icon} {config.label}
+            <Icon name={config.icon} size={14} filled />
+            {config.label}
           </span>
           <span className="text-[11px] text-gray-400">
             {formatTime(item.publishedAt)}
@@ -76,19 +78,20 @@ function InfoCardTier3({ item }: { item: InfoItem }) {
         {!revealed ? (
           <button
             onClick={() => setRevealed(true)}
-            className="mt-2 w-full text-center py-3 px-4 rounded-full text-sm font-medium transition-colors"
+            className="mt-2 w-full text-center py-3 px-4 rounded-full text-sm font-medium transition-colors inline-flex items-center justify-center gap-2"
             style={{
               background: "var(--md-surface-container-highest)",
               color: "var(--md-on-surface-variant)",
             }}
           >
-            ⚠️ 未確認情報です — タップして詳細を表示
+            <Icon name="warning" size={16} />
+            未確認情報です — タップして詳細を表示
           </button>
         ) : (
           <div className="mt-3 animate-fade-in">
-            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 mb-3 text-xs text-yellow-800 leading-relaxed">
-              ⚠️
-              この情報は公式に確認されていません。デマの可能性があります。公式発表をお待ちください。
+            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 mb-3 text-xs text-yellow-800 leading-relaxed flex items-start gap-2">
+              <Icon name="warning" size={16} className="shrink-0 mt-0.5" />
+              <span>この情報は公式に確認されていません。デマの可能性があります。公式発表をお待ちください。</span>
             </div>
             <p className="text-sm text-gray-600 leading-relaxed">
               {item.detail}
@@ -115,18 +118,20 @@ function InfoCardDefault({ item }: { item: InfoItem }) {
     >
       <div className="p-5">
         <div className="flex items-center gap-2 mb-3">
-          <span className="text-lg">{categoryIcons[item.category]}</span>
+          <Icon name={categoryIcons[item.category]} size={20} filled style={{ color: "var(--md-primary)" }} />
           <span
-            className={`text-[11px] font-bold px-3 py-1 rounded-full ${config.badge}`}
+            className={`text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1 ${config.badge}`}
           >
+            <Icon name={config.icon} size={14} filled />
             {config.label}
           </span>
           <span className="text-[11px] text-gray-400">
             {formatTime(item.publishedAt)}
           </span>
           {item.publishedAt !== item.updatedAt && (
-            <span className="text-[11px] text-blue-500 font-medium">
-              更新 {formatTime(item.updatedAt)}
+            <span className="text-[11px] text-blue-500 font-medium inline-flex items-center gap-0.5">
+              <Icon name="update" size={13} />
+              {formatTime(item.updatedAt)}
             </span>
           )}
         </div>
@@ -142,19 +147,21 @@ function InfoCardDefault({ item }: { item: InfoItem }) {
               {item.detail}
             </p>
             <div className="flex items-center gap-3 mt-4">
-              <span className="text-xs" style={{ color: "var(--md-outline)" }}>
-                情報元: {item.source}
+              <span className="text-xs inline-flex items-center gap-1" style={{ color: "var(--md-outline)" }}>
+                <Icon name="source" size={14} />
+                {item.source}
               </span>
               {item.sourceUrl && (
                 <a
                   href={item.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-medium underline"
+                  className="text-xs font-medium underline inline-flex items-center gap-1"
                   style={{ color: "var(--md-primary)" }}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  公式サイト →
+                  公式サイト
+                  <Icon name="open_in_new" size={13} />
                 </a>
               )}
             </div>

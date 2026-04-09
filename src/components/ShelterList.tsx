@@ -1,4 +1,5 @@
 import { EvacuationShelter } from "@/types";
+import Icon from "@/components/Icon";
 
 /** 設備タグの色分け */
 const facilityColors: Record<string, string> = {
@@ -43,7 +44,7 @@ export default function ShelterList({
         className="bg-blue-600 text-white rounded-t-2xl px-6 py-4 flex items-center gap-3"
         style={{ boxShadow: "var(--md-elevation-1)" }}
       >
-        <span className="text-xl">🏠</span>
+        <Icon name="night_shelter" size={22} filled className="text-white" />
         <div>
           <h2 className="text-lg font-bold">避難所情報</h2>
           <p className="text-xs text-white/80 mt-0.5">
@@ -71,8 +72,9 @@ export default function ShelterList({
                   <h3 className="text-base font-bold" style={{ color: "var(--md-on-surface)" }}>
                     {shelter.name}
                   </h3>
-                  <p className="text-xs mt-1" style={{ color: "var(--md-outline)" }}>
-                    📍 {shelter.address}
+                  <p className="text-xs mt-1 inline-flex items-center gap-1" style={{ color: "var(--md-outline)" }}>
+                    <Icon name="location_on" size={14} />
+                    {shelter.address}
                   </p>
                 </div>
                 <span

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DisasterInfo } from "@/types";
+import Icon from "@/components/Icon";
 
 /** 深刻度ごとの表示設定（背景色・パルスアニメ・ラベル） */
 const severityConfig = {
@@ -20,14 +21,14 @@ const severityConfig = {
   },
 };
 
-/** 災害種別に対応するアイコン */
+/** 災害種別に対応するMaterial Symbolsアイコン名 */
 const typeIcons: Record<DisasterInfo["type"], string> = {
-  earthquake: "🔴",
-  tsunami: "🌊",
-  typhoon: "🌀",
-  flood: "🌧️",
-  fire: "🔥",
-  other: "⚠️",
+  earthquake: "earthquake",
+  tsunami: "tsunami",
+  typhoon: "cyclone",
+  flood: "flood",
+  fire: "local_fire_department",
+  other: "warning",
 };
 
 /** 災害速報バナー — トップページに表示し、タップで特設ページへ遷移する */
@@ -45,9 +46,7 @@ export default function DisasterBanner({
         style={{ boxShadow: "var(--md-elevation-3)" }}
       >
         <div className="flex items-start gap-4">
-          <span className="text-3xl mt-0.5" role="img" aria-label={disaster.type}>
-            {typeIcons[disaster.type]}
-          </span>
+          <Icon name={typeIcons[disaster.type]} size={32} filled className="text-white mt-0.5" />
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-2">
               {config.pulse && (
@@ -67,9 +66,12 @@ export default function DisasterBanner({
               {disaster.summary}
             </p>
             <div className="flex items-center gap-4 mt-3 text-xs text-white/70">
-              <span>📍 {disaster.region}</span>
-              <span>
-                🕐{" "}
+              <span className="inline-flex items-center gap-1">
+                <Icon name="location_on" size={14} />
+                {disaster.region}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Icon name="schedule" size={14} />
                 {new Date(disaster.occurredAt).toLocaleTimeString("ja-JP", {
                   hour: "2-digit",
                   minute: "2-digit",
@@ -77,7 +79,7 @@ export default function DisasterBanner({
               </span>
             </div>
           </div>
-          <span className="text-white/50 text-2xl font-light">›</span>
+          <Icon name="chevron_right" size={24} className="text-white/50" />
         </div>
       </div>
     </Link>

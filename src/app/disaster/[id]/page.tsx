@@ -11,6 +11,7 @@ import { TierLevel } from "@/types";
 import TierSection from "@/components/TierSection";
 import ShelterList from "@/components/ShelterList";
 import { LifelinePanel, TransportPanel } from "@/components/StatusPanels";
+import Icon from "@/components/Icon";
 
 /**
  * 災害特設ページ
@@ -51,7 +52,8 @@ export default async function DisasterPage({
         className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
         style={{ color: "var(--md-primary)" }}
       >
-        ← ダッシュボードに戻る
+        <Icon name="arrow_back" size={18} />
+        ダッシュボードに戻る
       </Link>
 
       {/* 災害ヘッダー */}
@@ -73,9 +75,13 @@ export default async function DisasterPage({
           {disaster.summary}
         </p>
         <div className="flex items-center gap-5 mt-4 text-sm text-white/70">
-          <span>📍 {disaster.region}</span>
-          <span>
-            🕐 発生:{" "}
+          <span className="inline-flex items-center gap-1">
+            <Icon name="location_on" size={16} />
+            {disaster.region}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Icon name="schedule" size={16} />
+            発生:{" "}
             {new Date(disaster.occurredAt).toLocaleString("ja-JP", {
               month: "long",
               day: "numeric",
@@ -89,17 +95,17 @@ export default async function DisasterPage({
       {/* クイックナビ */}
       <div className="grid grid-cols-4 gap-3">
         {[
-          { label: "避難所", icon: "🏠", href: "#shelters" },
-          { label: "ライフライン", icon: "🔌", href: "#lifeline" },
-          { label: "交通", icon: "🚃", href: "#transport" },
-          { label: "情報一覧", icon: "📋", href: "#info" },
+          { label: "避難所", icon: "night_shelter", href: "#shelters" },
+          { label: "ライフライン", icon: "power", href: "#lifeline" },
+          { label: "交通", icon: "train", href: "#transport" },
+          { label: "情報一覧", icon: "assignment", href: "#info" },
         ].map((nav) => (
           <a
             key={nav.label}
             href={nav.href}
             className="md-card flex flex-col items-center gap-2 py-4 px-2 hover:shadow-lg transition-shadow text-center"
           >
-            <span className="text-2xl">{nav.icon}</span>
+            <Icon name={nav.icon} size={28} filled style={{ color: "var(--md-primary)" }} />
             <span className="text-xs font-medium" style={{ color: "var(--md-on-surface)" }}>
               {nav.label}
             </span>

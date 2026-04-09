@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Icon from "@/components/Icon";
 
 /** アプリ共通ヘッダー — ロゴ・最終更新時刻・配信ステータスを表示 */
 export default function Header() {
@@ -14,8 +15,8 @@ export default function Header() {
     >
       <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center font-bold text-base">
-            希
+          <div className="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center">
+            <Icon name="shield" size={24} filled className="text-white" />
           </div>
           <div>
             <h1 className="text-xl font-bold leading-tight tracking-wide">
