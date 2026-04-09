@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Icon from "@/components/Icon";
 
 /**
@@ -64,7 +65,8 @@ export default function Home() {
           デマやノイズを排除し、本当に必要な防災情報だけをお届けします。
         </p>
         <div className="flex items-center justify-center gap-4 mt-8">
-          <button
+          <Link
+            href="/disaster/eq-20260409-tokyo"
             className="px-6 py-3 rounded-full text-sm font-bold transition-shadow hover:shadow-lg"
             style={{
               background: "var(--md-primary)",
@@ -72,8 +74,9 @@ export default function Home() {
             }}
           >
             無料で始める
-          </button>
-          <button
+          </Link>
+          <Link
+            href="#features"
             className="px-6 py-3 rounded-full text-sm font-bold border transition-colors"
             style={{
               borderColor: "var(--md-outline-variant)",
@@ -81,12 +84,12 @@ export default function Home() {
             }}
           >
             詳しく見る
-          </button>
+          </Link>
         </div>
       </section>
 
       {/* Bento Grid 機能紹介 */}
-      <section className="animate-fade-in-up stagger-2">
+      <section id="features" className="animate-fade-in-up stagger-2">
         <h3
           className="text-2xl font-black text-center mb-10"
           style={{ color: "var(--md-on-surface)" }}
