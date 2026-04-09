@@ -6,6 +6,12 @@ import {
   TransportStatus,
 } from "@/types";
 
+/**
+ * モックデータ
+ * 本番環境ではAIが自動収集した情報源（気象庁API・自治体発表等）から取得する
+ */
+
+/** 災害一覧（アクティブ／過去の災害） */
 export const disasters: DisasterInfo[] = [
   {
     id: "eq-20260409-tokyo",
@@ -30,6 +36,7 @@ export const disasters: DisasterInfo[] = [
   },
 ];
 
+/** 3層レイヤーに分類された情報項目（Tier 1〜3） */
 export const infoItems: InfoItem[] = [
   // === Tier 1: 確定情報 ===
   {
@@ -165,6 +172,7 @@ export const infoItems: InfoItem[] = [
   },
 ];
 
+/** 開設中の避難所リスト */
 export const shelters: EvacuationShelter[] = [
   {
     id: "shelter-001",
@@ -223,6 +231,7 @@ export const shelters: EvacuationShelter[] = [
   },
 ];
 
+/** ライフラインの稼働状況（電気・水道・ガス・通信） */
 export const lifelineStatuses: LifelineStatus[] = [
   {
     id: "ll-001",
@@ -266,6 +275,7 @@ export const lifelineStatuses: LifelineStatus[] = [
   },
 ];
 
+/** 交通機関の運行情報 */
 export const transportStatuses: TransportStatus[] = [
   {
     id: "tr-001",

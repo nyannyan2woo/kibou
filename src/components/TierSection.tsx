@@ -1,6 +1,7 @@
 import { InfoItem, TierLevel } from "@/types";
 import InfoCard from "./InfoCard";
 
+/** ティアごとのセクションヘッダー設定 */
 const tierHeaders = {
   1: {
     title: "確定情報",
@@ -22,6 +23,7 @@ const tierHeaders = {
   },
 } as const;
 
+/** 信頼度レイヤーセクション — ヘッダーと情報カード一覧を描画 */
 export default function TierSection({
   tier,
   items,
@@ -36,18 +38,25 @@ export default function TierSection({
   return (
     <section>
       <div
-        className={`${header.headerBg} text-white rounded-t-xl px-4 py-3 flex items-center gap-2`}
+        className={`${header.headerBg} text-white rounded-t-2xl px-6 py-4 flex items-center gap-3`}
+        style={{ boxShadow: "var(--md-elevation-1)" }}
       >
-        <span className="text-lg">{header.icon}</span>
+        <span className="text-xl">{header.icon}</span>
         <div>
-          <h2 className="text-base font-bold">{header.title}</h2>
-          <p className="text-[11px] text-white/80">{header.subtitle}</p>
+          <h2 className="text-lg font-bold">{header.title}</h2>
+          <p className="text-xs text-white/80 mt-0.5">{header.subtitle}</p>
         </div>
-        <span className="ml-auto text-xs bg-white/20 px-2 py-0.5 rounded-full">
+        <span className="ml-auto text-xs bg-white/20 px-3 py-1 rounded-full font-medium">
           {items.length}件
         </span>
       </div>
-      <div className="space-y-3 bg-white rounded-b-xl p-4 shadow-sm">
+      <div
+        className="rounded-b-2xl p-5 space-y-4"
+        style={{
+          background: "var(--md-surface-container-lowest)",
+          boxShadow: "var(--md-elevation-1)",
+        }}
+      >
         {items.map((item) => (
           <InfoCard key={item.id} item={item} />
         ))}

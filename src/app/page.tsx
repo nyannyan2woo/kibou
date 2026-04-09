@@ -3,10 +3,16 @@ import { TierLevel } from "@/types";
 import DisasterBanner from "@/components/DisasterBanner";
 import TierSection from "@/components/TierSection";
 
+/**
+ * トップページ（ダッシュボード）
+ * アクティブな災害があれば速報バナーと3層レイヤー情報を表示し、
+ * 災害がない場合は平常時メッセージを描画する
+ */
 export default function Home() {
   const activeDisasters = disasters.filter((d) => d.isActive);
   const latestDisaster = activeDisasters[0];
 
+  /** 指定ティアの情報を更新日時の降順で取得 */
   const itemsByTier = (tier: TierLevel) =>
     infoItems
       .filter((i) => i.tier === tier && i.disasterId === latestDisaster?.id)
@@ -16,10 +22,10 @@ export default function Home() {
       );
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-3xl mx-auto px-6 py-8 space-y-8">
       {/* 災害速報バナー */}
       {activeDisasters.length > 0 && (
-        <section className="space-y-3">
+        <section className="space-y-4">
           {activeDisasters.map((d) => (
             <DisasterBanner key={d.id} disaster={d} />
           ))}
@@ -27,16 +33,19 @@ export default function Home() {
       )}
 
       {/* コアコンセプト説明 */}
-      <div className="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
-        <div className="flex items-start gap-3">
-          <div className="w-10 h-10 bg-sky-100 rounded-lg flex items-center justify-center text-sky-600 font-bold shrink-0">
+      <div className="md-card-elevated p-6">
+        <div className="flex items-start gap-4">
+          <div
+            className="w-12 h-12 rounded-2xl flex items-center justify-center text-lg shrink-0"
+            style={{ background: "var(--md-primary-container)", color: "var(--md-on-primary-container)" }}
+          >
             ℹ️
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-800 mb-1">
+            <h3 className="text-base font-bold mb-2" style={{ color: "var(--md-on-surface)" }}>
               KIBOUについて
             </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: "var(--md-on-surface-variant)" }}>
               本アプリは信頼性の高い情報のみを配信する「マスメディア型」防災アプリです。
               ユーザーからの情報発信機能はありません。AIが24時間自動で情報を収集・分類し、
               信頼度別に3段階のレイヤーで可視化してお届けします。
@@ -47,21 +56,21 @@ export default function Home() {
 
       {/* 3層レイヤー情報 */}
       {latestDisaster && (
-        <>
+        <div className="space-y-8">
           <TierSection tier={1} items={itemsByTier(1)} />
           <TierSection tier={2} items={itemsByTier(2)} />
           <TierSection tier={3} items={itemsByTier(3)} />
-        </>
+        </div>
       )}
 
       {/* 災害なし時 */}
       {activeDisasters.length === 0 && (
-        <div className="text-center py-20">
-          <div className="text-5xl mb-4">🌤️</div>
-          <h2 className="text-xl font-bold text-slate-700 mb-2">
+        <div className="md-card text-center py-24 px-8">
+          <div className="text-6xl mb-6">🌤️</div>
+          <h2 className="text-2xl font-bold mb-3" style={{ color: "var(--md-on-surface)" }}>
             現在、災害情報はありません
           </h2>
-          <p className="text-sm text-slate-500">
+          <p className="text-base" style={{ color: "var(--md-on-surface-variant)" }}>
             災害発生時は自動で特設ページが生成されます。
           </p>
         </div>

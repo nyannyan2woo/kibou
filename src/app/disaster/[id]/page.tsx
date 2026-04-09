@@ -12,6 +12,10 @@ import TierSection from "@/components/TierSection";
 import ShelterList from "@/components/ShelterList";
 import { LifelinePanel, TransportPanel } from "@/components/StatusPanels";
 
+/**
+ * 災害特設ページ
+ * 災害IDごとに避難所・ライフライン・交通・3層レイヤー情報を集約表示する
+ */
 export default async function DisasterPage({
   params,
 }: {
@@ -40,33 +44,35 @@ export default async function DisasterPage({
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+    <div className="max-w-3xl mx-auto px-6 py-8 space-y-8">
       {/* 戻るリンク */}
       <Link
         href="/"
-        className="inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 transition-colors"
+        className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
+        style={{ color: "var(--md-primary)" }}
       >
         ← ダッシュボードに戻る
       </Link>
 
       {/* 災害ヘッダー */}
       <div
-        className={`${severityBg[disaster.severity]} text-white rounded-xl p-5 shadow-lg`}
+        className={`${severityBg[disaster.severity]} text-white rounded-2xl p-7`}
+        style={{ boxShadow: "var(--md-elevation-3)" }}
       >
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="text-xs font-bold bg-white/20 px-3 py-1 rounded-full">
             特設ページ
           </span>
-          <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+          <span className="text-xs bg-white/20 px-3 py-1 rounded-full flex items-center gap-1.5">
             <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
             自動更新中
           </span>
         </div>
-        <h1 className="text-xl font-bold mb-2">{disaster.title}</h1>
-        <p className="text-sm text-white/90 leading-relaxed">
+        <h1 className="text-2xl font-bold mb-3">{disaster.title}</h1>
+        <p className="text-base text-white/90 leading-relaxed">
           {disaster.summary}
         </p>
-        <div className="flex items-center gap-4 mt-3 text-xs text-white/70">
+        <div className="flex items-center gap-5 mt-4 text-sm text-white/70">
           <span>📍 {disaster.region}</span>
           <span>
             🕐 発生:{" "}
@@ -81,7 +87,7 @@ export default async function DisasterPage({
       </div>
 
       {/* クイックナビ */}
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-3">
         {[
           { label: "避難所", icon: "🏠", href: "#shelters" },
           { label: "ライフライン", icon: "🔌", href: "#lifeline" },
@@ -91,10 +97,10 @@ export default async function DisasterPage({
           <a
             key={nav.label}
             href={nav.href}
-            className="flex flex-col items-center gap-1 py-3 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
+            className="md-card flex flex-col items-center gap-2 py-4 px-2 hover:shadow-lg transition-shadow text-center"
           >
-            <span className="text-xl">{nav.icon}</span>
-            <span className="text-[11px] font-medium text-gray-700">
+            <span className="text-2xl">{nav.icon}</span>
+            <span className="text-xs font-medium" style={{ color: "var(--md-on-surface)" }}>
               {nav.label}
             </span>
           </a>
@@ -117,7 +123,7 @@ export default async function DisasterPage({
       </div>
 
       {/* 信頼度レイヤー情報 */}
-      <div id="info" className="space-y-6">
+      <div id="info" className="space-y-8">
         <TierSection tier={1} items={itemsByTier(1)} />
         <TierSection tier={2} items={itemsByTier(2)} />
         <TierSection tier={3} items={itemsByTier(3)} />

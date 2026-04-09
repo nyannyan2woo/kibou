@@ -1,8 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f1f5f9;
-  --foreground: #1e293b;
+  /* Material Design 3 Color Tokens */
+  --md-primary: #1565c0;
+  --md-on-primary: #ffffff;
+  --md-primary-container: #d1e4ff;
+  --md-on-primary-container: #001d36;
+
+  --md-secondary: #535f70;
+  --md-on-secondary: #ffffff;
+  --md-secondary-container: #d7e3f7;
+
+  --md-surface: #f8f9ff;
+  --md-surface-dim: #d7d9e0;
+  --md-surface-bright: #f8f9ff;
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #f2f3fa;
+  --md-surface-container: #ecedf4;
+  --md-surface-container-high: #e6e8ef;
+  --md-surface-container-highest: #e1e2e9;
+
+  --md-on-surface: #191c20;
+  --md-on-surface-variant: #43474e;
+  --md-outline: #73777f;
+  --md-outline-variant: #c3c7cf;
+
+  --md-error: #ba1a1a;
+  --md-on-error: #ffffff;
+
+  /* Material Design Elevation Shadows */
+  --md-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  --md-elevation-2: 0 2px 6px 2px rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  --md-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.08), 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --md-elevation-4: 0 6px 10px 4px rgba(0, 0, 0, 0.08), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+
+  --background: var(--md-surface);
+  --foreground: var(--md-on-surface);
 }
 
 @theme inline {
@@ -18,6 +51,44 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Material Design Card */
+.md-card {
+  background: var(--md-surface-container-lowest);
+  border-radius: 16px;
+  box-shadow: var(--md-elevation-1);
+  transition: box-shadow 0.2s ease;
+}
+
+.md-card:hover {
+  box-shadow: var(--md-elevation-2);
+}
+
+.md-card-elevated {
+  background: var(--md-surface-container-low);
+  border-radius: 16px;
+  box-shadow: var(--md-elevation-2);
+  transition: box-shadow 0.2s ease;
+}
+
+.md-card-elevated:hover {
+  box-shadow: var(--md-elevation-3);
+}
+
+.md-card-filled {
+  background: var(--md-surface-container-highest);
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+/* Material Design surfaces */
+.md-surface {
+  background: var(--md-surface);
+}
+
+.md-surface-container {
+  background: var(--md-surface-container);
+}
+
 @keyframes slide-down {
   from {
     opacity: 0;
@@ -31,4 +102,19 @@ body {
 
 .animate-slide-down {
   animation: slide-down 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
 }
