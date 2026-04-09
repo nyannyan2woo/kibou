@@ -11,7 +11,8 @@ const tierConfig = {
     sublabel: "公式発表・信頼度100%",
     color: "border-l-emerald-500",
     bg: "",
-    badge: "bg-emerald-100 text-emerald-800",
+    badgeBg: "var(--md-success-container)",
+    badgeColor: "var(--md-success)",
     icon: "verified",
   },
   2: {
@@ -19,7 +20,8 @@ const tierConfig = {
     sublabel: "報道ベース・公式発表待ち",
     color: "border-l-amber-400",
     bg: "",
-    badge: "bg-amber-100 text-amber-800",
+    badgeBg: "var(--md-warning-container)",
+    badgeColor: "var(--md-warning)",
     icon: "newspaper",
   },
   3: {
@@ -27,7 +29,8 @@ const tierConfig = {
     sublabel: "SNS情報・AI抽出・要注意",
     color: "border-l-gray-400",
     bg: "",
-    badge: "bg-gray-200 text-gray-600",
+    badgeBg: "var(--md-surface-container-highest)",
+    badgeColor: "var(--md-on-surface-variant)",
     icon: "warning",
   },
 } as const;
@@ -65,16 +68,17 @@ function InfoCardTier3({ item }: { item: InfoItem }) {
       <div className="p-5">
         <div className="flex items-center gap-2 mb-3">
           <span
-            className={`text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1 ${config.badge}`}
+            className="text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1"
+            style={{ background: config.badgeBg, color: config.badgeColor }}
           >
             <Icon name={config.icon} size={14} filled />
             {config.label}
           </span>
-          <span className="text-[11px] text-gray-400">
+          <span className="text-[11px]" style={{ color: "var(--md-outline)" }}>
             {formatTime(item.publishedAt)}
           </span>
         </div>
-        <h3 className="text-base font-bold text-gray-700 mb-2">{item.title}</h3>
+        <h3 className="text-base font-bold mb-2" style={{ color: "var(--md-on-surface)" }}>{item.title}</h3>
         {!revealed ? (
           <button
             onClick={() => setRevealed(true)}
@@ -89,14 +93,21 @@ function InfoCardTier3({ item }: { item: InfoItem }) {
           </button>
         ) : (
           <div className="mt-3 animate-fade-in">
-            <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-4 mb-3 text-xs text-yellow-800 leading-relaxed flex items-start gap-2">
+            <div
+              className="rounded-2xl p-4 mb-3 text-xs leading-relaxed flex items-start gap-2 border"
+              style={{
+                background: "var(--md-warning-container)",
+                color: "var(--md-warning)",
+                borderColor: "var(--md-outline-variant)",
+              }}
+            >
               <Icon name="warning" size={16} className="shrink-0 mt-0.5" />
               <span>この情報は公式に確認されていません。デマの可能性があります。公式発表をお待ちください。</span>
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: "var(--md-on-surface-variant)" }}>
               {item.detail}
             </p>
-            <p className="text-xs text-gray-400 mt-3">
+            <p className="text-xs mt-3" style={{ color: "var(--md-outline)" }}>
               情報元: {item.source}
             </p>
           </div>
@@ -129,7 +140,8 @@ function InfoCardDefault({ item }: { item: InfoItem }) {
         <div className="flex items-center gap-2 mb-3 flex-wrap">
           <Icon name={categoryIcons[item.category]} size={20} filled style={{ color: "var(--md-primary)" }} />
           <span
-            className={`text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1 ${config.badge}`}
+            className="text-[11px] font-bold px-3 py-1 rounded-full inline-flex items-center gap-1"
+            style={{ background: config.badgeBg, color: config.badgeColor }}
           >
             <Icon name={config.icon} size={14} filled />
             {config.label}

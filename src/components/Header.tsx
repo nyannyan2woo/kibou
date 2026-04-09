@@ -33,7 +33,7 @@ export default function Header() {
           現在 {activeCount} 件の災害情報を配信中です — 最新情報を確認してください
         </div>
       )}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
           <div className="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center">
             <Icon name="shield" size={24} filled className="text-white" />

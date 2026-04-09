@@ -4,15 +4,15 @@ import { useState } from "react";
 import { EvacuationShelter } from "@/types";
 import Icon from "@/components/Icon";
 
-/** 設備タグの色分け */
-const facilityColors: Record<string, string> = {
-  飲料水: "bg-blue-100 text-blue-700",
-  毛布: "bg-orange-100 text-orange-700",
-  簡易トイレ: "bg-purple-100 text-purple-700",
-  "Wi-Fi": "bg-cyan-100 text-cyan-700",
-  AED: "bg-red-100 text-red-700",
-  ペット可: "bg-green-100 text-green-700",
-  授乳室: "bg-pink-100 text-pink-700",
+/** 設備タグのアイコンマッピング */
+const facilityIcons: Record<string, string> = {
+  飲料水: "water_drop",
+  毛布: "bed",
+  簡易トイレ: "wc",
+  "Wi-Fi": "wifi",
+  AED: "monitor_heart",
+  ペット可: "pets",
+  授乳室: "child_care",
 };
 
 /** 収容率に応じたテキスト色を返す（80%以上: 赤, 50%以上: 黄, それ以下: 緑） */
@@ -36,9 +36,9 @@ function occupancyBar(shelter: EvacuationShelter) {
 /** 収容率ステータスラベル */
 function occupancyLabel(shelter: EvacuationShelter) {
   const ratio = shelter.currentOccupancy / shelter.capacity;
-  if (ratio >= 0.8) return { text: "混雑", className: "bg-red-100 text-red-700" };
-  if (ratio >= 0.5) return { text: "やや混雑", className: "bg-amber-100 text-amber-700" };
-  return { text: "空きあり", className: "bg-emerald-100 text-emerald-700" };
+  if (ratio >= 0.8) return { text: "混雑", bg: "var(--md-error-container)", color: "var(--md-error)" };
+  if (ratio >= 0.5) return { text: "やや混雑", bg: "var(--md-warning-container)", color: "var(--md-warning)" };
+  return { text: "空きあり", bg: "var(--md-success-container)", color: "var(--md-success)" };
 }
 
 /** 避難所のソート順フィルタ */
@@ -186,7 +186,10 @@ export default function ShelterList({
                     <h3 className="text-base font-bold" style={{ color: "var(--md-on-surface)" }}>
                       {shelter.name}
                     </h3>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${status.className}`}>
+                    <span
+                      className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                      style={{ background: status.bg, color: status.color }}
+                    >
                       {status.text}
                     </span>
                   </div>
@@ -221,10 +224,13 @@ export default function ShelterList({
                 {shelter.facilities.map((f) => (
                   <span
                     key={f}
-                    className={`text-[11px] px-3 py-1 rounded-full font-medium ${
-                      facilityColors[f] || "bg-gray-100 text-gray-600"
-                    }`}
+                    className="text-[11px] px-3 py-1 rounded-full font-medium inline-flex items-center gap-1"
+                    style={{
+                      background: "var(--md-secondary-container)",
+                      color: "var(--md-on-surface-variant)",
+                    }}
                   >
+                    {facilityIcons[f] && <Icon name={facilityIcons[f]} size={13} />}
                     {f}
                   </span>
                 ))}

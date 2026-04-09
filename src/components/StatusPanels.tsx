@@ -20,22 +20,22 @@ const lifelineLabels: Record<LifelineStatus["type"], string> = {
 /** ライフライン稼働状況のバッジ（正常 / 障害中 / 復旧済） */
 const statusBadge: Record<
   LifelineStatus["status"],
-  { label: string; className: string }
+  { label: string; bg: string; color: string }
 > = {
-  normal: { label: "正常", className: "bg-emerald-100 text-emerald-700" },
-  disrupted: { label: "障害中", className: "bg-red-100 text-red-700" },
-  restored: { label: "復旧済", className: "bg-blue-100 text-blue-700" },
+  normal: { label: "正常", bg: "var(--md-success-container)", color: "var(--md-success)" },
+  disrupted: { label: "障害中", bg: "var(--md-error-container)", color: "var(--md-error)" },
+  restored: { label: "復旧済", bg: "var(--md-primary-container)", color: "var(--md-primary)" },
 };
 
 /** 交通機関の運行ステータスバッジ */
 const transportBadge: Record<
   TransportStatus["status"],
-  { label: string; className: string }
+  { label: string; bg: string; color: string }
 > = {
-  normal: { label: "通常運行", className: "bg-emerald-100 text-emerald-700" },
-  delayed: { label: "遅延", className: "bg-amber-100 text-amber-700" },
-  suspended: { label: "運休", className: "bg-red-100 text-red-700" },
-  partial: { label: "一部運休", className: "bg-orange-100 text-orange-700" },
+  normal: { label: "通常運行", bg: "var(--md-success-container)", color: "var(--md-success)" },
+  delayed: { label: "遅延", bg: "var(--md-warning-container)", color: "var(--md-warning)" },
+  suspended: { label: "運休", bg: "var(--md-error-container)", color: "var(--md-error)" },
+  partial: { label: "一部運休", bg: "var(--md-warning-container)", color: "var(--md-warning)" },
 };
 
 /** 日時文字列を「HH:MM」形式にフォーマット */
@@ -90,7 +90,8 @@ export function LifelinePanel({
                     {lifelineLabels[s.type]}
                   </span>
                   <span
-                    className={`text-[11px] font-bold px-3 py-0.5 rounded-full ${badge.className}`}
+                    className="text-[11px] font-bold px-3 py-0.5 rounded-full"
+                    style={{ background: badge.bg, color: badge.color }}
                   >
                     {badge.label}
                   </span>
@@ -145,7 +146,8 @@ export function TransportPanel({
                     {s.line}
                   </span>
                   <span
-                    className={`text-[11px] font-bold px-3 py-0.5 rounded-full ${badge.className}`}
+                    className="text-[11px] font-bold px-3 py-0.5 rounded-full"
+                    style={{ background: badge.bg, color: badge.color }}
                   >
                     {badge.label}
                   </span>
