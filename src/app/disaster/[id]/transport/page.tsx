@@ -38,15 +38,15 @@ export default async function TransportPage({
       {/* サマリーカード */}
       <div className="grid grid-cols-3 gap-3 animate-fade-in-up stagger-1">
         <div className="md-card p-4 text-center">
-          <p className="text-2xl font-black text-red-600">{suspended.length}</p>
+          <p className="text-2xl font-black text-red-600 dark:text-red-400">{suspended.length}</p>
           <p className="text-xs mt-1" style={{ color: "var(--md-outline)" }}>運休</p>
         </div>
         <div className="md-card p-4 text-center">
-          <p className="text-2xl font-black text-amber-600">{delayed.length}</p>
+          <p className="text-2xl font-black text-amber-600 dark:text-amber-400">{delayed.length}</p>
           <p className="text-xs mt-1" style={{ color: "var(--md-outline)" }}>遅延</p>
         </div>
         <div className="md-card p-4 text-center">
-          <p className="text-2xl font-black text-emerald-600">{normalOrPartial.length}</p>
+          <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400">{normalOrPartial.length}</p>
           <p className="text-xs mt-1" style={{ color: "var(--md-outline)" }}>運行中</p>
         </div>
       </div>

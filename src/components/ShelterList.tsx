@@ -18,18 +18,18 @@ const facilityIcons: Record<string, string> = {
 /** 収容率に応じたテキスト色を返す（80%以上: 赤, 50%以上: 黄, それ以下: 緑） */
 function occupancyColor(shelter: EvacuationShelter) {
   const ratio = shelter.currentOccupancy / shelter.capacity;
-  if (ratio >= 0.8) return "text-red-600";
-  if (ratio >= 0.5) return "text-amber-600";
-  return "text-emerald-600";
+  if (ratio >= 0.8) return "text-red-600 dark:text-red-400";
+  if (ratio >= 0.5) return "text-amber-600 dark:text-amber-400";
+  return "text-emerald-600 dark:text-emerald-400";
 }
 
 /** 収容率バーの割合と色を計算 */
 function occupancyBar(shelter: EvacuationShelter) {
   const ratio = Math.min(shelter.currentOccupancy / shelter.capacity, 1);
   const pct = Math.round(ratio * 100);
-  let barColor = "bg-emerald-400";
-  if (ratio >= 0.8) barColor = "bg-red-400";
-  else if (ratio >= 0.5) barColor = "bg-amber-400";
+  let barColor = "bg-emerald-400 dark:bg-emerald-500";
+  if (ratio >= 0.8) barColor = "bg-red-400 dark:bg-red-500";
+  else if (ratio >= 0.5) barColor = "bg-amber-400 dark:bg-amber-500";
   return { pct, barColor };
 }
 

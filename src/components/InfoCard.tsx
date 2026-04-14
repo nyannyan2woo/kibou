@@ -27,7 +27,7 @@ const tierConfig = {
   3: {
     label: "未確認情報",
     sublabel: "SNS情報・AI抽出・要注意",
-    color: "border-l-gray-400",
+    color: "border-l-gray-400 dark:border-l-gray-500",
     bg: "",
     badgeBg: "var(--md-surface-container-highest)",
     badgeColor: "var(--md-on-surface-variant)",

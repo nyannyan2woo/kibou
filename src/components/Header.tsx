@@ -22,7 +22,7 @@ export default function Header() {
     <header
       className="sticky top-0 z-50 text-white"
       style={{
-        background: "var(--md-primary)",
+        background: "var(--md-header-bg)",
         boxShadow: "var(--md-elevation-3)",
       }}
     >

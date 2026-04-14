@@ -36,15 +36,15 @@ export default async function LifelinePage({
       {/* サマリーカード */}
       <div className="grid grid-cols-3 gap-3 animate-fade-in-up stagger-1">
         <div className="md-card p-4 text-center">
-          <p className="text-2xl font-black text-red-600">{disrupted.length}</p>
+          <p className="text-2xl font-black text-red-600 dark:text-red-400">{disrupted.length}</p>
           <p className="text-xs mt-1" style={{ color: "var(--md-outline)" }}>障害中</p>
         </div>
         <div className="md-card p-4 text-center">
-          <p className="text-2xl font-black text-emerald-600">{normal.length}</p>
+          <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400">{normal.length}</p>
           <p className="text-xs mt-1" style={{ color: "var(--md-outline)" }}>正常</p>
         </div>
         <div className="md-card p-4 text-center">
-          <p className="text-2xl font-black text-blue-600">{restored.length}</p>
+          <p className="text-2xl font-black text-blue-600 dark:text-blue-400">{restored.length}</p>
           <p className="text-xs mt-1" style={{ color: "var(--md-outline)" }}>復旧済</p>
         </div>
       </div>
